@@ -11,7 +11,10 @@ WORKDIR /app
 COPY handler.py workflow_api.json entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 # Download model weights only when requested. Recommended: bake models during image build for cold-start speed.
-COPY download_models.sh /app/download_models.sh
-ARG BAKE_MODELS=0
-RUN if [ "$BAKE_MODELS" = "1" ]; then bash /app/download_models.sh; fi
+COPY download_models.sh verify_baked_models.sh /app/
+RUN chmod +x /app/download_models.sh /app/verify_baked_models.sh
+# Always embed the four model files in the image at build time.
+# RunPod's Dockerfile builder must have enough disk for the final OCI archive and layers.
+RUN bash /app/download_models.sh
+ENV MODEL_DOWNLOAD_MODE=skip
 CMD ["/app/entrypoint.sh"]

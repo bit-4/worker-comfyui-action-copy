@@ -20,7 +20,7 @@ for nid in sorted(keep):
  named=n.get('widgets_values_named') or {}
  # Named widget keys mirror ComfyUI's API input names, except composite widget keys.
  for key,val in named.items():
-  if '.' not in key and key not in ('upload','control_after_generate'):
+  if key not in ('upload','control_after_generate'):
    inp[key]=val
  for x in n.get('inputs',[]):
   lid=x.get('link')
@@ -39,6 +39,12 @@ api['2000']['inputs']['add_noise']=True
 api['189']['inputs']['image']='reference.png'
 api['240']['inputs']['file']='pose.mp4'
 api['246']['inputs']['filename_prefix']='wan2_generated'
+# ResizeImageMaskNode requires nested widget values as flattened API keys.
+for nid in ('1243','1244'):
+ api[nid]['inputs']['resize_type.crop']=nodes[int(nid)].get('widgets_values_named',{}).get('resize_type.crop','center')
+ if nid=='1243':
+  api[nid]['inputs']['resize_type.width']=482
+  api[nid]['inputs']['resize_type.height']=854
 # Remove unconnected UI-only widget keys from LoadImage/LoadVideo.
 for k in ('189','240'):
  api[k]['inputs'].pop('upload',None)

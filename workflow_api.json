@@ -276,7 +276,10 @@
       "input": [
         "288",
         0
-      ]
+      ],
+      "resize_type.crop": "center",
+      "resize_type.width": 482,
+      "resize_type.height": 854
     },
     "_meta": {
       "title": "ResizeImageMaskNode"
@@ -298,7 +301,8 @@
       "resize_type.height": [
         "1256",
         1
-      ]
+      ],
+      "resize_type.crop": "center"
     },
     "_meta": {
       "title": "ResizeImageMaskNode"
