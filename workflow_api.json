@@ -1,0 +1,422 @@
+{
+  "189": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "reference.png"
+    },
+    "_meta": {
+      "title": "Load Image (Reference Image)"
+    }
+  },
+  "240": {
+    "class_type": "LoadVideo",
+    "inputs": {
+      "file": "pose.mp4"
+    },
+    "_meta": {
+      "title": "Load Video (Pose Video)"
+    }
+  },
+  "245": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "fps": [
+        "288",
+        2
+      ],
+      "bit_depth": 8,
+      "color_space": "sRGB",
+      "codec": "none",
+      "images": [
+        "2000",
+        0
+      ],
+      "audio": [
+        "288",
+        1
+      ]
+    },
+    "_meta": {
+      "title": "CreateVideo"
+    }
+  },
+  "246": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "filename_prefix": "wan2_generated",
+      "format": "auto",
+      "codec": "auto",
+      "video": [
+        "245",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "SaveVideo"
+    }
+  },
+  "288": {
+    "class_type": "GetVideoComponents",
+    "inputs": {
+      "video": [
+        "240",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "GetVideoComponents"
+    }
+  },
+  "604": {
+    "class_type": "PrimitiveStringMultiline",
+    "inputs": {
+      "value": "A girl doing energetic street dance with popping body waves and fast spinning moves, rain falling around her."
+    },
+    "_meta": {
+      "title": "Text (Multiline - Post Prompt)"
+    }
+  },
+  "605": {
+    "class_type": "PrimitiveStringMultiline",
+    "inputs": {
+      "value": "Character appearance description: A realistic premium collectible action figure of a male street dancer, lifelike matte vinyl and resin material with realistic skin-like paint finish, detailed fabric folds on a black hoodie, dark cargo pants, white sneakers, subtle articulated joints, premium designer toy craftsmanship, standing in a relaxed confident pose facing the camera, full body from head to toe.\nBackground description: rainy neon-lit city street corner at night, wet asphalt reflecting purple-blue and red neon signs, light mist, cinematic night photography."
+    },
+    "_meta": {
+      "title": "Text (Multiline - Character Prompt)"
+    }
+  },
+  "1003": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": [
+        "605",
+        0
+      ],
+      "clip": [
+        "1009",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "1004": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "clip": [
+        "1009",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt)"
+    }
+  },
+  "1007": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "Wan2_1_VAE_bf16.safetensors"
+    },
+    "_meta": {
+      "title": "VAELoader"
+    }
+  },
+  "1009": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "CLIPLoader"
+    }
+  },
+  "1018": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 10,
+      "denoise": 1,
+      "model": [
+        "1224",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "1027": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "lcm"
+    },
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "1075": {
+    "class_type": "CLIPVisionLoader",
+    "inputs": {
+      "clip_name": "clip_vision_h.safetensors"
+    },
+    "_meta": {
+      "title": "CLIPVisionLoader"
+    }
+  },
+  "1076": {
+    "class_type": "CLIPVisionEncode",
+    "inputs": {
+      "crop": "none",
+      "clip_vision": [
+        "1075",
+        0
+      ],
+      "image": [
+        "1244",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CLIPVisionEncode"
+    }
+  },
+  "1095": {
+    "class_type": "ModelSamplingSD3",
+    "inputs": {
+      "shift": 5,
+      "model": [
+        "1224",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "ModelSamplingSD3"
+    }
+  },
+  "1220": {
+    "class_type": "CLIPVisionEncode",
+    "inputs": {
+      "crop": "none",
+      "clip_vision": [
+        "1075",
+        0
+      ],
+      "image": [
+        "1236",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CLIPVisionEncode"
+    }
+  },
+  "1222": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": [
+        "604",
+        0
+      ],
+      "clip": [
+        "1009",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "CLIPTextEncode"
+    }
+  },
+  "1224": {
+    "class_type": "WanAnimate2Cache",
+    "inputs": {
+      "device": "gpu",
+      "dtype": "int8",
+      "model": [
+        "1258",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "WanAnimate2Cache"
+    }
+  },
+  "1236": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "batch_index": 0,
+      "length": 1,
+      "image": [
+        "1243",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "ImageFromBatch"
+    }
+  },
+  "1239": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "wan_animate_2_distill_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "UNETLoader"
+    }
+  },
+  "1243": {
+    "class_type": "ResizeImageMaskNode",
+    "inputs": {
+      "resize_type": "scale dimensions",
+      "scale_method": "area",
+      "input": [
+        "288",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "ResizeImageMaskNode"
+    }
+  },
+  "1244": {
+    "class_type": "ResizeImageMaskNode",
+    "inputs": {
+      "resize_type": "scale dimensions",
+      "scale_method": "area",
+      "input": [
+        "189",
+        0
+      ],
+      "resize_type.width": [
+        "1256",
+        0
+      ],
+      "resize_type.height": [
+        "1256",
+        1
+      ]
+    },
+    "_meta": {
+      "title": "ResizeImageMaskNode"
+    }
+  },
+  "1256": {
+    "class_type": "GetImageSize",
+    "inputs": {
+      "image": [
+        "1243",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "GetImageSize"
+    }
+  },
+  "1257": {
+    "class_type": "ContextWindowsManual",
+    "inputs": {
+      "context_length": 21,
+      "context_overlap": 8,
+      "context_schedule": "standard_static",
+      "context_stride": 1,
+      "closed_loop": false,
+      "fuse_method": "pyramid",
+      "dim": 2,
+      "freenoise": true,
+      "cond_retain_index_list": "0",
+      "split_conds_to_windows": false,
+      "latent_retain_index_list": "",
+      "causal_window_fix": true,
+      "model": [
+        "1239",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "ContextWindowsManual"
+    }
+  },
+  "1258": {
+    "class_type": "ComfySwitchNode",
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "1239",
+        0
+      ],
+      "on_true": [
+        "1257",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "ComfySwitchNode"
+    }
+  },
+  "2000": {
+    "class_type": "WanAnimate2LoopSampler",
+    "inputs": {
+      "width": 482,
+      "height": 854,
+      "segment_length": 81,
+      "noise_seed": 611452341832574,
+      "cfg": 1.0,
+      "add_noise": true,
+      "pose_strength": 1,
+      "pose_start_percent": 0,
+      "pose_end_percent": 1,
+      "reference_image_strength": 1,
+      "model": [
+        "1095",
+        0
+      ],
+      "positive": [
+        "1003",
+        0
+      ],
+      "negative": [
+        "1004",
+        0
+      ],
+      "vae": [
+        "1007",
+        0
+      ],
+      "pose_video": [
+        "1243",
+        0
+      ],
+      "reference_image": [
+        "1244",
+        0
+      ],
+      "sampler": [
+        "1027",
+        0
+      ],
+      "sigmas": [
+        "1018",
+        0
+      ],
+      "positive_pose": [
+        "1222",
+        0
+      ],
+      "clip_vision_output": [
+        "1076",
+        0
+      ],
+      "clip_vision_output_pose": [
+        "1220",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "WanAnimate2LoopSampler"
+    }
+  }
+}
