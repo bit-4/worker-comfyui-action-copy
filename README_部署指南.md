@@ -74,3 +74,13 @@ curl -H "Authorization: Bearer RUNPOD_API_KEY" "https://api.runpod.ai/v2/ENDPOIN
 - `No generated video found`：当前 ComfyUI 的视频历史输出结构与 handler 预期不同；检查 `/history/{prompt_id}` 中保存视频节点输出。
 - `OOM`：降低目标分辨率、截短输入视频、升级显卡。分段循环并不保证显存占用恒定。
 - 视频动作与源视频不一致：检查人物姿态预处理，保持输入动作视频比例与输出分辨率一致；单纯提升 pose_strength 不保证精确复制动作。
+
+
+## v2 修复（针对 HTTP 400 验证失败）
+- 已修正 1243/1244 节点必填的 `resize_type.crop=center`，并补齐 1243 的 `resize_type.width/height`。
+- 已修复转换脚本错误丢弃带点号参数的问题。
+- Docker 默认 `BAKE_MODELS=1`，构建时下载 4 个模型；模型尺寸异常时立即终止构建。
+- Worker 启动时从 `/object_info` 检查实际可见的四个模型名称，不存在就直接启动失败，防止用户任务反复报错。
+- **如果挂载了网络卷并覆盖 `/opt/ComfyUI/models`，需要确认挂载后仍包含四个文件。**
+- 修改后请重新构建镜像并使用新的版本 tag 更新 RunPod endpoint。
+- 本次仅静态验证，不代表已在 RunPod GPU 实测。

@@ -12,6 +12,6 @@ COPY handler.py workflow_api.json entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 # Download model weights only when requested. Recommended: bake models during image build for cold-start speed.
 COPY download_models.sh /app/download_models.sh
-ARG BAKE_MODELS=0
+ARG BAKE_MODELS=1
 RUN if [ "$BAKE_MODELS" = "1" ]; then bash /app/download_models.sh; fi
 CMD ["/app/entrypoint.sh"]
